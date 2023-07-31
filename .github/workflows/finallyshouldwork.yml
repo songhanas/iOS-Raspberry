@@ -1,4 +1,4 @@
-name: Build IPA without signing 5
+name: Build IPA without signing 5 [FIX]
 on:
   push:
     branches:
@@ -11,6 +11,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Set up Xcode
+      uses: actions/setup-xcode@v2
+      with:
+        xcode-version: 5.1.1  # Change this to the appropriate Xcode version
 
     - name: Build IPA
       run: |
