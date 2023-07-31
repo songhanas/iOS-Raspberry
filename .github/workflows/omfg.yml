@@ -1,0 +1,27 @@
+name: Build IPA without signing 4
+on:
+  push:
+    branches:
+      - main # Change to your desired branch name
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build IPA
+      run: |
+        xcodebuild archive -workspace "raspberry.xcodeproj/project.xcworkspace/" -scheme YourScheme -archivePath "build/YourProject.xcarchive" -configuration Release
+        xcodebuild -exportArchive -archivePath "build/YourProject.xcarchive" -exportPath "build" -exportOptionsPlist "ExportOptions.plist"
+
+    - name: Copy IPA to artifacts
+      run: |
+        mv "build/YourProject.ipa" "YourProject.ipa"
+
+    - name: Upload IPA as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: YourProject-ipa
+        path: YourProject.ipa
