@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main # Change to your desired branch name
+  workflow_dispatch: # Add this section for manual triggering
+
 
 jobs:
   build:
