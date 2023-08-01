@@ -1,4 +1,4 @@
-name: Build IPA without signing 5 [FIX 2]
+name: Build IPA without signing 5 [FIX 3]
 on:
   push:
     branches:
@@ -11,6 +11,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Download and Unpack SDK
+      run: |
+        # Download the SDK .zip file
+        curl -L -o sdk.zip "https://github.com/GrowtopiaJaw/iPhoneOS-SDK/releases/download/v1.0/iPhoneOS6.0.sdk.zip"
+        # Unzip the SDK .zip file to the 'SDKs' directory
+        mkdir SDKs
+        unzip sdk.zip -d SDKs
+        # Set the environment variable to the SDK folder path
+        echo "SDK_PATH=$(pwd)/SDKs/iPhoneOS6.0.sdk" >> $GITHUB_ENV
 
     - name: Build IPA
       run: |
