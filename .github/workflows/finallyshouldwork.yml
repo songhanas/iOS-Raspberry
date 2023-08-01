@@ -11,14 +11,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '5.1.1'
 
     - name: Build IPA
       run: |
-        xcodebuild archive -workspace "raspberry.xcodeproj/project.xcworkspace/" -scheme raspberry -archivePath "build/YourProject.xcarchive" -configuration Release
+        xcodebuild archive -workspace "raspberry.xcodeproj/project.xcworkspace" -scheme raspberry -archivePath "build/YourProject.xcarchive" -configuration Release
         xcodebuild -exportArchive -archivePath "build/YourProject.xcarchive" -exportPath "build" -exportOptionsPlist "ExportOptions.plist"
 
     - name: Copy IPA to artifacts
