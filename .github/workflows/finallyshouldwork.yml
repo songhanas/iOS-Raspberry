@@ -1,4 +1,4 @@
-name: Build IPA without signing 5 [FIX 4]
+name: Build IPA without signing 5 [FIX 5]
 on:
   push:
     branches:
@@ -25,6 +25,13 @@ jobs:
       run: |
         echo "SHOWING SDK PATH"
         xcrun --show-sdk-path
+        
+    - name: pwd and ls
+      run: |
+       ls -l
+       echo "------------------"
+       pwd
+   
     - name: Build IPA
       run: |
         xcodebuild archive -workspace "raspberry.xcodeproj/project.xcworkspace" -scheme raspberry -archivePath "build/YourProject.xcarchive" -configuration Release
