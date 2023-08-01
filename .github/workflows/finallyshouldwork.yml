@@ -1,4 +1,4 @@
-name: Build IPA without signing 5 [FIX 3]
+name: Build IPA without signing 5 [FIX 4]
 on:
   push:
     branches:
@@ -21,7 +21,10 @@ jobs:
         unzip sdk.zip -d SDKs
         # Set the environment variable to the SDK folder path
         echo "SDK_PATH=$(pwd)/SDKs/iPhoneOS6.0.sdk" >> $GITHUB_ENV
-
+    - name: Get SDK Path
+      run: |
+        echo "SHOWING SDK PATH"
+        xcrun --show-sdk-path
     - name: Build IPA
       run: |
         xcodebuild archive -workspace "raspberry.xcodeproj/project.xcworkspace" -scheme raspberry -archivePath "build/YourProject.xcarchive" -configuration Release
